@@ -1,5 +1,8 @@
 {
     "technologies": {
+        "languages": [
+            "javascript"
+        ],
         "apis": [
             "midi",
             "youtube",
@@ -7,13 +10,15 @@
             "instagram"
         ],
         "platforms": [
-            "dart / go"
+            "chrome apps",
+            "app engine"
         ],
         "toolkits": [
-            "google app engine"
         ]
     },
     "themes": [
-        "say what?"
+        "collaboration",
+        "creativity",
+        "expression"
     ]
 }
