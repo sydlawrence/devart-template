@@ -1,33 +1,42 @@
 # Project Title
-Insert the name of your project
+Standing Novation
 
 ## Authors
-- Insert main author name, surname, github account
-- Insert other author(s) name, surname, github account (one per list element)
+Syd Lawrence github.com/sydlawrence
 
 ## Description
-Insert a description containing about 100 to 150 words, including your motivation and the meaning behind your idea and execution. The Judges will be keen to know how your idea pushes the boundaries of code and technology. 
+Using Novation Launchpads I intend to build a large interactive screen with multiple "modes" allowing other developers and memebers of the general public to create their own creative expressions by using simple code
+
+People on the would be able to submit portions of code to modify the interaction of the screen. There will also be multiple pre made "modes" such as the intstagram viewer, allowing people to send in their own photos to display on a massively pixellated screen. Where the interactive screen is simply used as a display. But then there will be other creative expressions on the other end of the spectrum that simply react to user input from pressing multiple LED buttons.
+
+I'd really like to extend Standing Novation to include the xbox kinect to track user interaction in front of the screen
+
+The project will all be backed by a go google app engine. And potentially using dart or go.
 
 ## Link to Prototype
-NOTE: If your project lives online you can add one or more links here. Make sure you have a stable version of your project running before linking it.
-
-[Example Link](http://www.google.com "Example Link")
+[Staging Novation](http://global.novationmusic.com/community/news/standing-novation "Standing Novation blog post")
 
 ## Example Code
 NOTE: Wrap your code blocks or any code citation by using ``` like the example below.
 ```
-function test() {
-  console.log("Printing a test");
-}
+var SampleMode = new Mode(function(launchpad){
+    this.run = function() {
+        launchpad.allLight(Launchpad.colors.green.high);
+    }    
+    launchpad.on("press", function(button) {
+        button.light(Launchpad.colors.red.high);
+    });
+});
 ```
 ## Links to External Libraries
  NOTE: You can also use this space to link to external libraries or Github repositories you used on your project.
 
-[Example Link](http://www.google.com "Example Link")
+[My midi-launchpad node module](https://github.com/sydlawrence/node-midi-launchpad "node midi-launchpad")
 
 ## Images & Videos
 NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
 
-![Example Image](project_images/cover.jpg?raw=true "Example Image")
+![Cover Image](project_images/cover.jpg?raw=true "Cover Image")
+![Tetris GIF](project_images/example.gif?raw=true "Tetris GIF")
 
-https://www.youtube.com/watch?v=30yGOxJJ2PQ
+http://www.youtube.com/watch?v=tpZsh1T0AZs
