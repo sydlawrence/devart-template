@@ -7,7 +7,7 @@ Syd Lawrence github.com/sydlawrence
 ## Description
 Using Novation Launchpads I intend to build a large interactive screen with multiple "modes" allowing other developers and memebers of the general public to create their own creative expressions by using simple code
 
-People on the would be able to submit portions of code to modify the interaction of the screen. There will also be multiple pre made "modes" such as the intstagram viewer, allowing people to send in their own photos to display on a massively pixellated screen. Where the interactive screen is simply used as a display. But then there will be other creative expressions on the other end of the spectrum that simply react to user input from pressing multiple LED buttons.
+People on the web would be able to submit portions of code to modify the interaction of the screen. There will also be multiple pre made "modes" such as the intstagram viewer, allowing people to send in their own photos to display on a massively pixellated screen. Where the interactive screen is simply used as a display. But then there will be other creative expressions on the other end of the spectrum that simply react to user input from pressing multiple LED buttons.
 
 I'd really like to extend Standing Novation to include the xbox kinect to track user interaction in front of the screen
 
