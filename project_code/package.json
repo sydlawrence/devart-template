@@ -11,6 +11,8 @@
     "twit": ">=0.0.1",
     "midi-launchpad": "~1.0.1",
     "underscore": "~1.6.0",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "speaker": "0.0.10",
+    "lame": "~1.0.3"
   }
 }

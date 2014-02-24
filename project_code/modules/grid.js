@@ -1,5 +1,5 @@
 var midiConnector = require('midi-launchpad');
-
+var ModeSelector = require("./modeSelector");
 var _ = require("underscore");
 var Backbone = require("backbone");
 
@@ -10,7 +10,9 @@ var Launchpad = function(port, across, down, ready) {
 
 var grid = {
     across:0,
+    modeSelector:undefined,
     down:0,
+    calibrated: false,
     launchpads: {},
     each: function(cb) {
         var pads = [];
@@ -26,7 +28,10 @@ var grid = {
         var ly = parseInt(y/8,10);
         x = x%8;
         y = y%8;
-        return this.launchpads[lx][ly].getButton(x,y);
+        if (this.launchpads[lx] && this.launchpads[lx][ly])
+            return this.launchpads[lx][ly].getButton(x,y);
+        else
+            return undefined;
     },
     clear: function() {
         grid.each(function(l){
@@ -48,7 +53,7 @@ var grid = {
         var calibrated = {};
 
         var finished = function() {
-
+            grid.calibrated = true;
             grid.launchpads = calibrated;
             onCalibrate();
         };
@@ -57,8 +62,8 @@ var grid = {
             var row = calibratedCount % grid.across;
             var column = (calibratedCount - row) / grid.across;
             calibratedCount++;
-            launchpad.across = row;
-            launchpad.down = column;
+            launchpad.x = row;
+            launchpad.y = column;
             if (!calibrated[row]) calibrated[row] = {};
             calibrated[row][column] = launchpad;
             if (calibratedCount === grid.across && grid.down) {
@@ -101,10 +106,9 @@ module.exports = function(startingMidiPort, across, down) {
         successes++;
         if (successes === across * down ) {
             grid.calibrate(launchpads, function() {
-
-                // let's set up some modes!
-
-
+                grid.modeSelector = new ModeSelector(grid);
+                grid.modeSelector.nextMode();
+                // grid.displayString("hello world");
             });
         }
     };
@@ -135,16 +139,6 @@ module.exports = function(startingMidiPort, across, down) {
             createLaunchpad(i, j);
         }
     }
-
-    grid.on("press", function(e){
-        e.btn.light(grid.colors.yellow.high);
-        console.log(e.launchpad.across+":"+e.btn.x+" "+e.launchpad.down+ ":"+e.btn.y+" pressed");
-    });
-
-    grid.on("release", function(e){
-        e.btn.light(grid.colors.off);
-        console.log(e.launchpad.across+":"+e.btn.x+" "+e.launchpad.down+ ":"+e.btn.y+" released");
-    });
 
     return grid;
 };
