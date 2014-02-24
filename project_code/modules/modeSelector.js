@@ -1,4 +1,5 @@
-var Zen = require('./modes/Zen');
+
+var Modes = require('./modes/Modes');
 
 var ModeSelector = function(launchpad) {
 
@@ -39,8 +40,26 @@ var ModeSelector = function(launchpad) {
     modes.push(obj);
   };
 
+  this.addModeByString = function(str) {
+    var Mode = require('./modes/'+str);
+    this.addMode(new Mode(launchpad));
+  };
 
-  this.addMode(new Zen(launchpad));
+  for (var i in Modes) {
+    this.addModeByString(Modes[i]);
+  }
+
+  launchpad.on("press", function(btn) {
+    if( btn.special &&
+      btn.y === 0 &&
+      btn.x === 8 &&
+      btn.launchpad.x === 1 &&
+      btn.launchpad.y === 0
+    ) {
+      that.nextMode();
+    }
+  });
+
 
   return this;
 };

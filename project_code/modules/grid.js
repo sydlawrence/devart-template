@@ -119,13 +119,16 @@ module.exports = function(startingMidiPort, across, down) {
             launchpads.push(launchpad);
 
             launchpad.on("press", function(btn){
-                grid.trigger("press", {btn:btn,launchpad:launchpad});
+                btn.launchpad = launchpad;
+                grid.trigger("press", btn);
             });
             launchpad.on("state_change", function(btn){
-                grid.trigger("state_change", {btn:btn,launchpad:launchpad});
+                btn.launchpad = launchpad;
+                grid.trigger("state_change", btn);
             });
             launchpad.on("release", function(btn){
-                grid.trigger("release", {btn:btn,launchpad:launchpad});
+                btn.launchpad = launchpad;
+                grid.trigger("release", btn);
             });
 
             grid.colors = launchpad.colors;

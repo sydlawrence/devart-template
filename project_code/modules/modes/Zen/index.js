@@ -51,7 +51,6 @@ var Zen = function(launchpad) {
   };
 
   launchpad.on('press', function(button) {
-    button = button.btn;
     if (!that.active) return;
 
     // var audio = new Audio;
