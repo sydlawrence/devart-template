@@ -73,7 +73,9 @@ var grid = {
 
         for (var i in launchpads) {
             var l = launchpads[i];
+
             (function(l){
+                return calibrate(l);
                 l.allLight(grid.colors.red.high);
                 var calibrated = false;
                 l.on("press", function(btn){

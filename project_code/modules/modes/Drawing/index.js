@@ -1,38 +1,26 @@
-module.exports = function(launchpad) {
+var Mode = require("../standing-novation-mode");
+var COLORS = require('midi-launchpad').colors;
 
-  this.name = "Drawing";
+var colors = [
+  COLORS.red.high,
+  COLORS.orange.high,
+  COLORS.yellow.high,
+  COLORS.green.high,
+  COLORS.off
+];
 
-  this.active = false;
-  var that = this;
-
-  this.run = function() {
-    launchpad.clear();
-  };
-
-  var colors = [
-    launchpad.colors.red.high,
-    launchpad.colors.orange.high,
-    launchpad.colors.yellow.high,
-    launchpad.colors.green.high,
-    launchpad.colors.off
-  ];
-
-  var nextColor = function(current) {
-    var currentIndex = 0;
-    for (var i = 0; i < colors.length; i++) {
-      if (colors[i] === current) {
-        currentIndex = i;
-      }
+var nextColor = function(current) {
+  for (var i = 0; i < colors.length; i++) {
+    if (colors[i] === current) {
+      break;
     }
+  }
+  return colors[(i+1)%colors.length];
+};
 
-    return colors[(currentIndex+1)%colors.length];
-  };
-
-  launchpad.on('press', function(button) {
-    if (!that.active) return;
-    button.light(nextColor(button._state));
-  });
-
-
-  return this;
-}
+module.exports = new Mode("Drawing Canvas", function (launchpad, btn){
+  for (var i = 0; i < colors.length; i++) {
+    if (colors[i] === btn._state)
+      return btn.light(colors[(i+1)%colors.length]);
+  }
+});

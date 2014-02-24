@@ -13,7 +13,6 @@ var ModeSelector = function(launchpad) {
     if (!launchpad.calibrated) return;
 
     if (activeMode) {
-      activeMode.active = false;
       if (activeMode.deactivate) activeMode.deactivate();
     }
 
@@ -25,7 +24,6 @@ var ModeSelector = function(launchpad) {
       }
     }
     activeModeIndex = modeIndex;
-    mode.active = true;
     mode.run();
     activeMode = mode;
   };
@@ -42,7 +40,8 @@ var ModeSelector = function(launchpad) {
 
   this.addModeByString = function(str) {
     var Mode = require('./modes/'+str);
-    this.addMode(new Mode(launchpad));
+    var mode = new Mode(launchpad);
+    this.addMode(mode);
   };
 
   for (var i in Modes) {
