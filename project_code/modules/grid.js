@@ -48,6 +48,7 @@ var grid = {
         var calibrated = {};
 
         var finished = function() {
+
             grid.launchpads = calibrated;
             onCalibrate();
         };
@@ -69,15 +70,16 @@ var grid = {
             var l = launchpads[i];
             (function(l){
                 l.allLight(grid.colors.red.high);
-
                 var calibrated = false;
                 l.on("press", function(btn){
                     if (calibrated) return;
                     calibrated = true;
                     btn.launchpad.allLight(l.colors.green.high);
                     setTimeout(function() {
-                        calibrate(l);
                         l.clear();
+                        setTimeout(function(){
+                            calibrate(l);
+                        },10);
                     },500);
 
                 });
@@ -99,15 +101,10 @@ module.exports = function(startingMidiPort, across, down) {
         successes++;
         if (successes === across * down ) {
             grid.calibrate(launchpads, function() {
-                console.log("let's light it: "+grid.colors.red.high);
-                // var btn = grid.getButton(12,2);
-                // btn.launchpad.allLight(grid.colors.yellow.high);
-                // btn.light(grid.colors.red.high);
-                for (var i in grid.launchpads) {
-                    grid.launchpads[i][0].getButton(6,2).light(grid.colors.red.high);
-                }
-                grid.launchpads[1][0].getButton(5,3).light(grid.colors.yellow.high);
-                grid.launchpads[0][0].getButton(4,2).light(grid.colors.red.high);
+
+                // let's set up some modes!
+
+
             });
         }
     };
