@@ -19,10 +19,7 @@ var currentColor = 0;
 var waveDelay = 100;
 
 var lightNeighbour = function(launchpad, button, uuid, dx, dy) {
-  var neighbourX = button.x+(button.launchpad.x*8)+dx;
-  var neighbourY = button.y+(button.launchpad.y*8)+dy;
-
-  var b = launchpad.getButton(neighbourX, neighbourY);
+  var b = launchpad.getButton(button.globalX+dx, button.globalY+dy);
   if (b === undefined || b.special || b._uuid[uuid] !== undefined) return;
   b.light(colors[currentColor]);
   b._uuid[uuid] = uuid;
@@ -45,7 +42,7 @@ var playAudio = function(){
 };
 
 var startWave = function(launchpad, btn) {
-  if (!btn.special) return;
+  if (btn.special) return;
   playAudio();
   currentColor = (currentColor + 1) % colors.length;
   btn.light(colors[(currentColor + 1) % colors.length]);

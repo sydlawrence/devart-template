@@ -52,7 +52,7 @@ var ModeSelector = function(launchpad) {
     if( btn.special &&
       btn.y === 0 &&
       btn.x === 8 &&
-      btn.launchpad.x === 1 &&
+      btn.launchpad.x === launchpad.across-1 &&
       btn.launchpad.y === 0
     ) {
       that.nextMode();

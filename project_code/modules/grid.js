@@ -55,10 +55,25 @@ var grid = {
         var finished = function() {
             grid.calibrated = true;
             grid.launchpads = calibrated;
+            for (var i in grid.launchpads) {
+                for (var j in grid.launchpads[i]) {
+                    var l = grid.launchpads[i][j];
+                    for (var x in l._grid) {
+                        for (var y in l._grid[x]) {
+                            l._grid[x][y] = setGlobalPosition(l,l._grid[x][y]);
+                        }
+                    }
+                }
+            }
+
+
+
             onCalibrate();
         };
 
         var calibrate = function(launchpad) {
+            console.log(calibratedCount);
+
             var row = calibratedCount % grid.across;
             var column = (calibratedCount - row) / grid.across;
             calibratedCount++;
@@ -66,19 +81,27 @@ var grid = {
             launchpad.y = column;
             if (!calibrated[row]) calibrated[row] = {};
             calibrated[row][column] = launchpad;
-            if (calibratedCount === grid.across && grid.down) {
+            if (calibratedCount === grid.across * grid.down) {
                 finished();
             }
+        };
+
+        var setGlobalPosition = function(launchpad, btn) {
+            btn.globalX = (btn.launchpad.x*8) + btn.x;
+            btn.globalY = (btn.launchpad.y*8) + btn.y;
+            return btn;
         };
 
         for (var i in launchpads) {
             var l = launchpads[i];
 
+
+
             (function(l){
-                return calibrate(l);
                 l.allLight(grid.colors.red.high);
                 var calibrated = false;
                 l.on("press", function(btn){
+                    console.log("PREEESSSSSEDDDD!!!");
                     if (calibrated) return;
                     calibrated = true;
                     btn.launchpad.allLight(l.colors.green.high);
@@ -114,8 +137,9 @@ module.exports = function(startingMidiPort, across, down) {
             });
         }
     };
-    var createLaunchpad = function(across, down) {
-        Launchpad((across*(down+1))+startingMidiPort,across, down, function(launchpad) {
+    var createLaunchpad = function(across, down, i) {
+        var port = startingMidiPort + i;
+        Launchpad(port,across, down, function(launchpad) {
             launchpad.across = across;
             launchpad.down = down;
             launchpads.push(launchpad);
@@ -139,9 +163,10 @@ module.exports = function(startingMidiPort, across, down) {
 
         });
     };
+    var c = 0;
     for (var i = 0; i < across; i++) {
         for (var j = 0; j < down; j++) {
-            createLaunchpad(i, j);
+            createLaunchpad(i, j, c++);
         }
     }
 
