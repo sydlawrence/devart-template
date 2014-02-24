@@ -9,18 +9,10 @@ var colors = [
   COLORS.off
 ];
 
-var nextColor = function(current) {
-  for (var i = 0; i < colors.length; i++) {
-    if (colors[i] === current) {
-      break;
-    }
-  }
-  return colors[(i+1)%colors.length];
-};
 
 module.exports = new Mode("Drawing Canvas", function (launchpad, btn){
-  colors.each(function(color, i){
-    if (color === btn._state)
+  for (var i = 0; i < colors.length; i++) {
+    if (colors[i] === btn._state)
       return btn.light(colors[(i+1)%colors.length]);
-  });
+  }
 });

@@ -10,13 +10,13 @@ var Mode = function(name,onPress,onInit,onFinish) {
         this.run = function() {
             this.active = true;
             that.launchpad.clear();
-            if (onInit) onInit();
+            if (onInit) onInit(that.launchpad);
         };
 
         this.deactivate = function() {
             this.active = false;
             that.launchpad.clear();
-            if (onFinish) onFinish();
+            if (onFinish) onFinish(that.launchpad);
         };
 
         that.launchpad.on('press', function(button) {

@@ -1,5 +1,3 @@
-var _ = require("underscore");
-var Backbone = require("backbone");
 var fs = require("fs");
 var lame = require("lame");
 var Speaker = require("speaker");
@@ -47,8 +45,8 @@ var playAudio = function(){
 };
 
 var startWave = function(launchpad, btn) {
+  if (!btn.special) return;
   playAudio();
-  if (btn.special !== false) return;
   currentColor = (currentColor + 1) % colors.length;
   btn.light(colors[(currentColor + 1) % colors.length]);
   var uuid = (new Date()).getTime() + "" + parseInt(Math.random()*100000,10);
