@@ -11,8 +11,7 @@ var colors = [
 
 var isActive = false;
 
-
-module.exports = new Mode("Drawing", function (launchpad){
+module.exports = new Mode("Drawing Canvas", function (launchpad){
     launchpad.on("press", function(launchpad,btn) {
         if (!isActive) return;
         for (var i = 0; i < colors.length; i++) {

@@ -1,7 +1,5 @@
 var Mode = require("../standing-novation-mode");
 
-
-
 var COLORS = require('midi-launchpad').colors;
 
 var colors = [
@@ -47,5 +45,16 @@ var startWave = function(launchpad, btn) {
   lightNeighbours(launchpad, btn, uuid);
 };
 
+var isActive = false;
 
-module.exports = new Mode("Zen Garden", startWave);
+var onInit = function(launchpad) {
+  isActive = true;
+  launchpad.on("press", function(launchpad, btn){
+    if (isActive) startWave(launchpad, btn);
+  });
+};
+var onFinish = function() {
+  isActive = false;
+};
+
+module.exports = new Mode("Zen Garden", onInit, onFinish);
