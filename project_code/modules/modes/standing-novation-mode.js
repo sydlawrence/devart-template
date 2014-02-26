@@ -1,4 +1,4 @@
-var Mode = function(name,onPress,onInit,onFinish) {
+var Mode = function(name,onInit,onFinish) {
 
     return function(launchpad) {
         this.launchpad = launchpad;
@@ -18,11 +18,6 @@ var Mode = function(name,onPress,onInit,onFinish) {
             that.launchpad.clear();
             if (onFinish) onFinish(that.launchpad);
         };
-
-        that.launchpad.on('press', function(button) {
-            if (!that.active) return;
-            onPress(that.launchpad, button);
-        });
 
         return this;
     };

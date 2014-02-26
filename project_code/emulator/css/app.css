@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'BebasNeueRegular';
+  src: url("fonts/BebasNeue-webfont.eot");
+  src: url("fonts/BebasNeue-webfont.eot?iefix") format("eot"), url("fonts/BebasNeue-webfont.woff") format("woff"), url("fonts/BebasNeue-webfont.ttf") format("truetype"), url("fonts/BebasNeue-webfont.svg#webfontfvFLBU0N") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'entypo';
+  src: url("fonts/entypo.eot");
+  src: url("fonts/entypo.eot?iefix") format("eot"), url("fonts/entypo.woff") format("woff"), url("fonts/entypo.ttf") format("truetype"), url("fonts/entypo.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'entypo-social';
+  src: url("fonts/entypo-social.eot");
+  src: url("fonts/entypo-social.eot?iefix") format("eot"), url("fonts/entypo-social.woff") format("woff"), url("fonts/entypo-social.ttf") format("truetype"), url("fonts/entypo-social.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 25, ../../scss/partials/_metricator.scss */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 34, ../../scss/partials/_metricator.scss */
+body {
+  padding: 20px;
+  font: 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  background: #1a1a1a;
+  color:#fff;
+}
+
+.launchpad {
+  width:20em;
+  display:inline-block;
+  padding:0.5em;
+  height:20em;
+  background:#333;
+  margin:0.5em;
+  border-radius:0.5em;
+  text-align:center;
+  position:relative;
+  padding-top:2.3em;
+  box-sizing:border-box;
+}
+.button {
+  background:#999;
+}
+
+.launchpad .name {
+  color:#ccc;
+  position:absolute;
+  top:0.3em;
+  right:0.3em;
+}
+
+.launchpad .button {
+  width:1.5em;
+  height:1.5em;
+  margin:0px 0.3em;
+  overflow:hidden;
+  line-height:1.5em;
+  border-radius:0.2em;
+  color:#000;
+  display:inline-block;
+  box-sizing:border-box;
+}
+.launchpad.button span {
+  font-size:0.5em;
+}
+.launchpad_row {
+  white-space: nowrap;
+}
+.launchpad .row {
+  height:2.1em;
+  white-space: nowrap;
+}
+.launchpad .row:last-child .button, .launchpad .row .button:last-child {
+  border-radius:50%;
+  border:0.1em solid red;
+}
+
+.launchpad .row:last-child {
+  position:absolute;
+  top:0.6em;
+  left:0.6em;
+}
+
+.launchpad .row:last-child .button:last-child {
+  display:none;
+}
+
+#sidebar {
+  position:fixed;
+  top:0;
+  right:0;
+  background:#fff;
+  color:#000;
+  padding:20px;
+}
+
+.red_high {
+  background:red;
+}
+.green_high {
+  background:green;
+}
+.yellow_high {
+  background:yellow;
+}
+.orange_high {
+  background:orange;
+}
+

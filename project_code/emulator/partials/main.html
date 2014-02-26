@@ -1,0 +1,17 @@
+<div class='launchpad_row' ng-repeat="launchpadrow in launchpads">
+    <div class='launchpad' ng-repeat="pad in launchpadrow">
+        <span class='name'>{{pad.x}}:{{pad.y}}</span>
+        <div class='row' ng-repeat="row in pad.buttons">
+            <div class='button' ng-repeat="button in row" ng-mousedown="button.mousedown()" ng-mouseout="button.mouseout()" ng-mouseup="button.mouseup()" ng-class="button._state">
+                <span>
+                    {{button.x}}:{{button.y}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sidebar">
+    <button ng-click="beginTest()">Begin Test</button>
+    <button ng-click="finishTest()">Finish Test</button>
+</div>
