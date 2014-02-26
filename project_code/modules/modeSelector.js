@@ -24,8 +24,10 @@ var ModeSelector = function(launchpad) {
       }
     }
     activeModeIndex = modeIndex;
-    mode.run();
-    activeMode = mode;
+    launchpad.animateString(mode.name, 1, function() {
+      activeMode = mode;
+      mode.run();
+    });
   };
 
   this.nextMode = function() {

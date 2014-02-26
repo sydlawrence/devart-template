@@ -30,9 +30,10 @@ var interval;
 
 
 
-var onPress = function(btn, launchpad){
-  if (!btn.special)
+var onPress = function(launchpad, btn){
+  if (!btn.special) {
     playAudio();
+  }
 };
 
 var onInit = function(launchpad) {

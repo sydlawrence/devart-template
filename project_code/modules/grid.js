@@ -16,9 +16,11 @@ var grid = {
     launchpads: {},
     each: function(cb) {
         var pads = [];
+        var c = 0;
         for (var i in grid.launchpads) {
             for (var j in grid.launchpads[i]) {
-                cb(grid.launchpads[i][j]);
+                cb(grid.launchpads[i][j], c, i, j);
+                c++;
             }
         }
         return pads;
@@ -43,7 +45,42 @@ var grid = {
             l.allLight(color);
         });
     },
-    displayString: function(str) {
+    staticText: function(str) {
+        grid.clear();
+        for (var i in grid.launchpads) {
+            for (var j in grid.launchpads[i]) {
+                var index = j * grid.across + i*1;
+                if (str[index])
+                    grid.launchpads[i][j].displayCharacter(str[index]);
+                else
+                    grid.launchpads[i][j].allLight(grid.colors.green.high);
+                if (str[index] === " ")
+                    grid.launchpads[i][j].allLight(grid.colors.green.high);
+            }
+        }
+    },
+    animateString: function(str, row, cb) {
+        grid.clear();
+        var c = 0;
+        var finished = function() {
+            c++;
+            if (c === grid.across) {
+                cb();
+            }
+        };
+        if (row === undefined) row = parseInt(this.down/2, 10);
+        str += " ";
+        for (var i = this.across; i > 0; i--) {
+            this.launchpads[i-1][row].displayString(str, 500,finished);
+            str = " "+str;
+            for (var j=0; j < this.down; j++) {
+                if (j !== row) {
+                    this.launchpads[i-1][j].allLight(grid.colors.green.high);
+                }
+            }
+
+
+        }
 
     },
     calibrate: function(launchpads,onCalibrate) {
@@ -72,7 +109,6 @@ var grid = {
         };
 
         var calibrate = function(launchpad) {
-            console.log(calibratedCount);
 
             var row = calibratedCount % grid.across;
             var column = (calibratedCount - row) / grid.across;
@@ -101,7 +137,6 @@ var grid = {
                 l.allLight(grid.colors.red.high);
                 var calibrated = false;
                 l.on("press", function(btn){
-                    console.log("PREEESSSSSEDDDD!!!");
                     if (calibrated) return;
                     calibrated = true;
                     btn.launchpad.allLight(l.colors.green.high);
@@ -131,9 +166,9 @@ module.exports = function(startingMidiPort, across, down) {
         successes++;
         if (successes === across * down ) {
             grid.calibrate(launchpads, function() {
+
                 grid.modeSelector = new ModeSelector(grid);
                 grid.modeSelector.nextMode();
-                // grid.displayString("hello world");
             });
         }
     };
