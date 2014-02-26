@@ -69,19 +69,19 @@ var grid = {
             }
         };
         if (row === undefined) row = parseInt(this.down/2, 10);
+        if (this.down === 1) row = 0;
         str += " ";
         for (var i = this.across; i > 0; i--) {
-            this.launchpads[i-1][row].displayString(str, 500,finished);
-            str = " "+str;
-            for (var j=0; j < this.down; j++) {
-                if (j !== row) {
-                    this.launchpads[i-1][j].allLight(grid.colors.green.high);
+            if (this.launchpads[i-1] && this.launchpads[i-1][row]) {
+                this.launchpads[i-1][row].displayString(str, 500,finished);
+                str = " "+str;
+                for (var j=0; j < this.down; j++) {
+                    if (j !== row) {
+                        this.launchpads[i-1][j].allLight(grid.colors.green.high);
+                    }
                 }
             }
-
-
         }
-
     },
     calibrate: function(launchpads,onCalibrate) {
 
@@ -134,6 +134,7 @@ var grid = {
 
 
             (function(l){
+                // return calibrate(l);
                 l.allLight(grid.colors.red.high);
                 var calibrated = false;
                 l.on("press", function(btn){
