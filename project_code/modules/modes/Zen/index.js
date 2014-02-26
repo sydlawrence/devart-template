@@ -1,6 +1,3 @@
-var fs = require("fs");
-var lame = require("lame");
-var Speaker = require("speaker");
 var Mode = require("../standing-novation-mode");
 
 
@@ -35,15 +32,14 @@ var lightNeighbours = function(launchpad, button, uuid) {
   },waveDelay);
 };
 
-var playAudio = function(){
+var playAudio = function(launchpad){
   var i = (Math.floor(Math.random() * 5)+1) % 6;
-  var stream = fs.createReadStream(__dirname+"/"+i+".mp3");
-  stream.pipe(new lame.Decoder()).pipe(new Speaker());
+  launchpad.playAudio(__dirname+"/"+i+".mp3");
 };
 
 var startWave = function(launchpad, btn) {
   if (btn.special) return;
-  playAudio();
+  playAudio(launchpad);
   currentColor = (currentColor + 1) % colors.length;
   btn.light(colors[(currentColor + 1) % colors.length]);
   var uuid = (new Date()).getTime() + "" + parseInt(Math.random()*100000,10);

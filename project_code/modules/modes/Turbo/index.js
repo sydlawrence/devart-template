@@ -1,6 +1,3 @@
-var fs = require("fs");
-var lame = require("lame");
-var Speaker = require("speaker");
 var Mode = require("../standing-novation-mode");
 var COLORS = require('midi-launchpad').colors;
 
@@ -20,10 +17,8 @@ var showRandom = function(launchpad) {
   if (btn) btn.light(color);
 };
 
-var playAudio = function(){
-  var i = (Math.floor(Math.random() * 5)+1) % 6;
-  var stream = fs.createReadStream(__dirname+"/CAPlogo.mp3");
-  stream.pipe(new lame.Decoder()).pipe(new Speaker());
+var playAudio = function(launchpad){
+  launchpad.playAudio(__dirname+"/CAPlogo.mp3");
 };
 
 var interval;
@@ -32,7 +27,7 @@ var interval;
 
 var onPress = function(launchpad, btn){
   if (!btn.special) {
-    playAudio();
+    playAudio(launchpad);
   }
 };
 

@@ -1,5 +1,8 @@
 var midiConnector = require('midi-launchpad');
 var ModeSelector = require("./modeSelector");
+var fs = require("fs");
+var lame = require("lame");
+var Speaker = require("speaker");
 var _ = require("underscore");
 var Backbone = require("backbone");
 
@@ -14,6 +17,10 @@ var grid = {
     down:0,
     calibrated: false,
     launchpads: {},
+    playAudio: function(filename) {
+        var stream = fs.createReadStream(filename);
+        stream.pipe(new lame.Decoder()).pipe(new Speaker());
+    },
     each: function(cb) {
         var pads = [];
         var c = 0;

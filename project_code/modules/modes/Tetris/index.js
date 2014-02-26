@@ -24,6 +24,10 @@ var game = {
   randomColor: function() {
     return colors[Math.floor(Math.random() * colors.length)];
   },
+  playTheme: function() {
+    if (!this.running) return;
+    game.launchpad.playAudio(__dirname+"/theme.mp3");
+  },
   displayScore: function() {
     var threshold = 100;
     var lightCount = Math.floor(this.score / threshold);
@@ -75,7 +79,9 @@ var game = {
     }
   },
   start: function() {
+
     this.running = true;
+    this.playTheme();
     this.score = 0;
     this.nextBrick();
     gameInterval = setInterval(function() {
