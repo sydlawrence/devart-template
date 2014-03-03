@@ -5,6 +5,9 @@ var COLORS = require('midi-launchpad').colors;
 
 var Brick = require("./Brick");
 
+var isActive= false;
+
+
 var colors = [
   COLORS.red.high,
   COLORS.yellow.high,
@@ -25,10 +28,11 @@ var game = {
     return colors[Math.floor(Math.random() * colors.length)];
   },
   playTheme: function() {
-    if (!this.running) return;
+    if (!this.running || !isActive) return;
     game.launchpad.playAudio(__dirname+"/theme.mp3");
   },
   displayScore: function() {
+    if (!isActive) return;
     var threshold = 100;
     var lightCount = Math.floor(this.score / threshold);
     for (var i = 0; i < lightCount; i++) {
@@ -42,6 +46,7 @@ var game = {
     clearInterval(gameInterval);
   },
   nextBrick: function() {
+    if (!isActive) return;
     game.checkLine();
     game.trigger("score", 1);
     if (!game.running) return;
@@ -50,6 +55,7 @@ var game = {
     game.activeBrick.on("stopped", game.nextBrick);
   },
   shiftLines: function(gapLine) {
+    if (!isActive) return;
     for (var i = gapLine - 1; i >= 0 ; i--) {
       for (var j = 0; j < 8*game.launchpad.across; j++) {
         var button = game.launchpad.getButton(j, i);
@@ -60,6 +66,7 @@ var game = {
     }
   },
   checkLine: function() {
+    if (!isActive) return;
     for(var i = 0; i < 8*game.launchpad.across; i++) {
       var fullLine = true;
       for (var j = 0; j < 8*game.launchpad.down; j++) {
@@ -79,6 +86,7 @@ var game = {
     }
   },
   start: function() {
+    if (!isActive) return;
 
     this.running = true;
     this.playTheme();
@@ -94,11 +102,13 @@ var game = {
 _.extend(game, Backbone.Events);
 
 game.on("score", function(score) {
+  if (!isActive) return;
   game.score += score;
   game.displayScore();
 });
 
 game.on("gameover", function(){
+  if (!isActive) return;
   game.launchpad.clear();
   game.launchpad.animateString("game over! You scored "+game.score, undefined, function() {
     game.launchpad.clear();
@@ -107,10 +117,13 @@ game.on("gameover", function(){
   game.stop();
 });
 
+
 var onInit = function(launchpad) {
+  isActive = true;
   game.launchpad = launchpad;
   game.start();
   launchpad.on('press', function(button) {
+    if (!isActive) return;
     if (!game.running) return;
     if (!button.special) return;
     button.light();
@@ -120,13 +133,17 @@ var onInit = function(launchpad) {
     if (button.special.indexOf("down") > -1) game.activeBrick.rotate(-1);
   });
   launchpad.on('release', function(button) {
+    if (!isActive) return;
     if (!game.running) return;
     button.dark();
   });
+
 };
 
 var onFinish = function() {
   game.stop();
+  isActive = false;
+
 };
 
 var onPress = function() {};

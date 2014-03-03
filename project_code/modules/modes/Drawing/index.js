@@ -10,7 +10,7 @@ var colors = [
 ];
 
 
-module.exports = new Mode("Drawing Canvas", function (launchpad, btn){
+module.exports = new Mode("Drawing", function (launchpad, btn){
   for (var i = 0; i < colors.length; i++) {
     if (colors[i] === btn._state)
       return btn.light(colors[(i+1)%colors.length]);

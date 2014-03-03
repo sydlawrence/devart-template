@@ -8,6 +8,8 @@ var colors = [
   COLORS.orange.high,
 ];
 
+var grid;
+
 var showRandom = function(launchpad) {
   var i = Math.floor(Math.random()*1024);
   var color = colors[Math.floor(Math.random()*colors.length)];
@@ -18,20 +20,23 @@ var showRandom = function(launchpad) {
 };
 
 var playAudio = function(launchpad){
-  launchpad.playAudio(__dirname+"/CAPlogo.mp3");
+
+  grid.playAudio(__dirname+"/CAPlogo.mp3");
 };
 
 var interval;
 
 
-
+var isActive = false;
 var onPress = function(launchpad, btn){
-  if (!btn.special) {
+  if (!btn.special && isActive) {
     playAudio(launchpad);
   }
 };
 
 var onInit = function(launchpad) {
+  isActive = true;
+  grid = launchpad;
   playAudio();
   clearInterval(interval);
   interval = setInterval(function() {
@@ -42,6 +47,7 @@ var onInit = function(launchpad) {
 };
 
 var onFinish = function(launchpad) {
+  isActive = false;
   clearInterval(interval);
 };
 
