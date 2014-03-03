@@ -13,7 +13,7 @@ var isActive = false;
 
 
 module.exports = new Mode("Drawing", function (launchpad){
-    launchpad.on("press", function(launchpad,btn) {
+    launchpad.on("press", function(btn) {
         if (!isActive) return;
         for (var i = 0; i < colors.length; i++) {
             if (colors[i] === btn._state)
