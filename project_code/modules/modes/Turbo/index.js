@@ -19,31 +19,25 @@ var showRandom = function(launchpad) {
   if (btn) btn.light(color);
 };
 
-var playAudio = function(launchpad){
-
-  grid.playAudio(__dirname+"/CAPlogo.mp3");
-};
-
 var interval;
 
 
 var isActive = false;
-var onPress = function(launchpad, btn){
-  if (!btn.special && isActive) {
-    playAudio(launchpad);
-  }
-};
-
 var onInit = function(launchpad) {
   isActive = true;
   grid = launchpad;
-  playAudio();
+  grid.playAudio(__dirname+"/CAPlogo.mp3");
   clearInterval(interval);
   interval = setInterval(function() {
     for (var i = 0; i < 50; i++) {
       showRandom(launchpad);
     }
   },100);
+  launchpad.on("press", function(btn){
+    if (!btn.special && isActive) {
+      grid.playAudio(__dirname+"/CAPlogo.mp3");
+    }
+  });
 };
 
 var onFinish = function(launchpad) {
@@ -51,4 +45,4 @@ var onFinish = function(launchpad) {
   clearInterval(interval);
 };
 
-module.exports = new Mode("Turbo Disco", onPress, onInit, onFinish);
+module.exports = new Mode("Turbo Disco", onInit, onFinish);
