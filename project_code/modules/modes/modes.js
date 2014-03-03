@@ -1,7 +1,7 @@
 
 module.exports = [
-    "Tetris",
     "Zen",
     "Turbo",
-    "Drawing"
+    "Drawing",
+    "Tetris",
 ];

@@ -141,6 +141,9 @@ var grid = {
 
 
             (function(l){
+                if (grid.across * grid.down === 1) {
+                    return calibrate(l);
+                }
                 // return calibrate(l);
                 l.allLight(grid.colors.red.high);
                 var calibrated = false;

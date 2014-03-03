@@ -49,7 +49,8 @@ var isActive = false;
 
 var onInit = function(launchpad) {
   isActive = true;
-  launchpad.on("press", function(launchpad, btn){
+  launchpad.on("press", function(btn){
+    console.log(btn);
     if (isActive) startWave(launchpad, btn);
   });
 };
