@@ -143,9 +143,6 @@ var onInit = function(launchpad) {
 var onFinish = function() {
   game.stop();
   isActive = false;
-
 };
 
-var onPress = function() {};
-
-module.exports = new Mode("Tetris", onPress, onInit, onFinish);
+module.exports = new Mode("Tetris", onInit, onFinish);
