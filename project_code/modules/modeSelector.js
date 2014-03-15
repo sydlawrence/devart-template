@@ -9,7 +9,7 @@ var ModeSelector = function(launchpad) {
   var activeModeIndex = -1;
   var that = this;
   this.switchMode = function(mode) {
-    console.log(mode.name);
+    launchpad.playAudio(__dirname+"/../changeMode.wav");
     if (!launchpad.calibrated) return;
 
     if (activeMode) {

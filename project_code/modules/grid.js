@@ -1,10 +1,10 @@
 var midiConnector = require('midi-launchpad');
 var ModeSelector = require("./modeSelector");
 var fs = require("fs");
-var lame = require("lame");
-var Speaker = require("speaker");
 var _ = require("underscore");
 var Backbone = require("backbone");
+var play = require('./modules/play');
+
 
 var Launchpad = function(port, across, down, ready) {
     var midi = midiConnector.connect(port);
@@ -17,9 +17,8 @@ var grid = {
     down:0,
     calibrated: false,
     launchpads: {},
-    playAudio: function(filename) {
-        var stream = fs.createReadStream(filename);
-        stream.pipe(new lame.Decoder()).pipe(new Speaker());
+    playAudio: function(filename, callback) {
+        return play.sound(filename, callback);
     },
     each: function(cb) {
         var pads = [];
@@ -120,6 +119,7 @@ var grid = {
             var row = calibratedCount % grid.across;
             var column = (calibratedCount - row) / grid.across;
             calibratedCount++;
+            grid.playAudio(__dirname+"/../calibration_audio/"+calibratedCount+".wav");
             launchpad.x = row;
             launchpad.y = column;
             if (!calibrated[row]) calibrated[row] = {};

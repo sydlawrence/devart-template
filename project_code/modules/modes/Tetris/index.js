@@ -27,9 +27,15 @@ var game = {
   randomColor: function() {
     return colors[Math.floor(Math.random() * colors.length)];
   },
+  themeAudio: undefined,
   playTheme: function() {
     if (!this.running || !isActive) return;
-    game.launchpad.playAudio(__dirname+"/theme.mp3");
+    this.themeAudio = game.launchpad.playAudio(__dirname+"/theme.mp3", function() {
+      game.playTheme();
+    });
+  },
+  stopTheme: function() {
+    this.themeAudio.stop();
   },
   displayScore: function() {
     if (!isActive) return;
@@ -43,6 +49,7 @@ var game = {
   },
   stop: function() {
     this.running = false;
+    this.stopTheme();
     clearInterval(gameInterval);
   },
   nextBrick: function() {
@@ -53,9 +60,11 @@ var game = {
     game.activeBrick = new Brick(game);
     game.activeBrick.render();
     game.activeBrick.on("stopped", game.nextBrick);
+    game.launchpad.playAudio(__dirname+"/go.wav");
   },
   shiftLines: function(gapLine) {
     if (!isActive) return;
+    game.launchpad.playAudio(__dirname+"/wooo.wav");
     for (var i = gapLine - 1; i >= 0 ; i--) {
       for (var j = 0; j < 8*game.launchpad.across; j++) {
         var button = game.launchpad.getButton(j, i);
@@ -109,6 +118,7 @@ game.on("score", function(score) {
 
 game.on("gameover", function(){
   if (!isActive) return;
+  game.launchpad.playAudio(__dirname+"/gameover.wav");
   game.launchpad.clear();
   game.launchpad.animateString("game over! You scored "+game.score, undefined, function() {
     game.launchpad.clear();

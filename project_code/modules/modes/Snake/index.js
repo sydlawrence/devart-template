@@ -64,6 +64,7 @@ var move = function() {
       y: ny
     };
     score++;
+    grid.playAudio(__dirname+"/grow.wav");
 
     //Create new food
     create_food();
@@ -81,6 +82,7 @@ var move = function() {
 var endGame = function() {
   isActive = false;
   grid.clear();
+  grid.playAudio(__dirname+"/gameover.wav");
   grid.animateString("game over! You scored "+score, undefined, function() {
     start();
   });

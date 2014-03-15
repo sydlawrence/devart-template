@@ -1,8 +1,9 @@
 
 module.exports = [
+    "Tetris",
+    "Samples",
     "Zen",
     "Snake",
-    "Tetris",
     "Drawing",
     "Turbo",
 ];
