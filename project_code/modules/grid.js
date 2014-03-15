@@ -4,6 +4,7 @@ var fs = require("fs");
 var _ = require("underscore");
 var Backbone = require("backbone");
 var play = require('./play');
+var exec=require('child_process').exec;
 
 
 var Launchpad = function(port, across, down, ready) {
@@ -17,6 +18,17 @@ var grid = {
     down:0,
     calibrated: false,
     launchpads: {},
+    restartAndUpload: function() {
+        exec('open ~/Desktop/Standing\\ Novation.app/',
+          function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+              console.log('exec error: ' + error);
+            }
+            process.exit();
+        });
+    },
     playAudio: function(filename, callback) {
         return play.sound(filename, callback);
     },
@@ -183,6 +195,9 @@ module.exports = function(startingMidiPort, across, down) {
             });
         }
     };
+
+    var restartCount = 0;
+
     var createLaunchpad = function(across, down, i) {
         var port = startingMidiPort + i;
         Launchpad(port,across, down, function(launchpad) {
@@ -191,6 +206,14 @@ module.exports = function(startingMidiPort, across, down) {
             launchpads.push(launchpad);
 
             launchpad.on("press", function(btn){
+                if (btn.x === 0 && btn.y === 0) {
+                    restartCount++;
+                    if (restartCount >= 10) {
+                        grid.restartAndUpload();
+                    }
+                } else {
+                    restartCount = 0;
+                }
                 btn.launchpad = launchpad;
                 grid.trigger("press", btn);
             });
