@@ -3,7 +3,7 @@ var ModeSelector = require("./modeSelector");
 var fs = require("fs");
 var _ = require("underscore");
 var Backbone = require("backbone");
-var play = require('./modules/play');
+var play = require('./play');
 
 
 var Launchpad = function(port, across, down, ready) {
