@@ -29,14 +29,10 @@ function create_snake() {
 function create_food() {
   var x = Math.floor(Math.random() * w);
   var y = Math.floor(Math.random() * h);
-  // if (check_collision(x, y, snake_array)) {
-  //   create_food();
-  // } else {
     food = {
       x: x,
       y: y,
     };
-  // };
 }
 
 function check_collision(x, y, array) {
@@ -70,7 +66,10 @@ var move = function() {
     create_food();
   } else {
     tail = snake_array.pop(); //pops out the last cell
-    grid.getButton(tail.x, tail.y).light(COLORS.off);
+    grid.getButton(tail.x*2, tail.y*2).light(COLORS.off);
+    grid.getButton(tail.x*2, tail.y*2+1).light(COLORS.off);
+    grid.getButton(tail.x*2+1, tail.y*2).light(COLORS.off);
+    grid.getButton(tail.x*2+1, tail.y*2+1).light(COLORS.off);
     tail.x = nx;
     tail.y = ny;
   }
@@ -89,11 +88,18 @@ var endGame = function() {
 };
 
 var draw = function() {
-  if (food && food.x && grid.getButton(food.x, food.y))
-    grid.getButton(food.x, food.y).light(COLORS.orange.high);
+  if (food && food.x && grid.getButton(food.x, food.y)) {
+    grid.getButton(food.x*2, food.y*2).light(COLORS.orange.high);
+    grid.getButton(food.x*2+1, food.y*2).light(COLORS.orange.high);
+    grid.getButton(food.x*2, food.y*2+1).light(COLORS.orange.high);
+    grid.getButton(food.x*2+1, food.y*2+1).light(COLORS.orange.high);
+  }
   for (var i in snake_array) {
     try {
-      grid.getButton(snake_array[i].x, snake_array[i].y).light(COLORS.green.high);
+      grid.getButton(snake_array[i].x*2, snake_array[i].y*2).light(COLORS.green.high);
+      grid.getButton(snake_array[i].x*2+1, snake_array[i].y*2).light(COLORS.green.high);
+      grid.getButton(snake_array[i].x*2, snake_array[i].y*2+1).light(COLORS.green.high);
+      grid.getButton(snake_array[i].x*2+1, snake_array[i].y*2+1).light(COLORS.green.high);
     } catch(e) {
       console.log(snake_array);
       console.log(i);
@@ -123,16 +129,16 @@ var onClick = function(btn) {
     case "up":
     case "down":
 
-      if (btn.globalX < snake_array[0].x) // if click is further left
+      if (btn.globalX < snake_array[0].x*2) // if click is further left
         direction = "left";
-      if (btn.globalX > snake_array[0].x) // if click is further right
+      if (btn.globalX > snake_array[0].x*2) // if click is further right
         direction = "right";
       break;
     case "left":
     case "right":
-      if (btn.globalY < snake_array[0].y) // if click is further up
+      if (btn.globalY < snake_array[0].y*2) // if click is further up
         direction = "up";
-      if (btn.globalY > snake_array[0].y) // if click is further down
+      if (btn.globalY > snake_array[0].y*2) // if click is further down
         direction = "down";
       break;
   }
@@ -147,8 +153,8 @@ var loop = function() {
 var onInit = function(launchpad) {
   grid = launchpad;
   grid.on("press", onClick);
-  w = grid.across*8;
-  h = grid.down*8;
+  w = grid.across*4;
+  h = grid.down*4;
   start();
 };
 
