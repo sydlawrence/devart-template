@@ -144,9 +144,12 @@ var loop = function() {
   setTimeout(loop, tickDelay);
 };
 
+var initedPreviously = false;
 var onInit = function(launchpad) {
   grid = launchpad;
-  grid.on("press", onClick);
+  if (!initedPreviously)
+    grid.on("press", onClick);
+  initedPreviously = true;
   w = grid.across*8;
   h = grid.down*8;
   start();

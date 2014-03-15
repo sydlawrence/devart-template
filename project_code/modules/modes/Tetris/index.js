@@ -127,26 +127,29 @@ game.on("gameover", function(){
   game.stop();
 });
 
-
+var initedPreviously = false;
 var onInit = function(launchpad) {
   isActive = true;
   game.launchpad = launchpad;
   game.start();
-  launchpad.on('press', function(button) {
-    if (!isActive) return;
-    if (!game.running) return;
-    if (!button.special) return;
-    button.light();
-    if (button.special.indexOf("left") > -1) game.activeBrick.move(0,-2);
-    if (button.special.indexOf("right") > -1) game.activeBrick.move(0,2);
-    if (button.special.indexOf("up") > -1) game.activeBrick.rotate(1);
-    if (button.special.indexOf("down") > -1) game.activeBrick.rotate(-1);
-  });
-  launchpad.on('release', function(button) {
-    if (!isActive) return;
-    if (!game.running) return;
-    button.dark();
-  });
+  if (!initedPreviously) {
+    launchpad.on('press', function(button) {
+      if (!isActive) return;
+      if (!game.running) return;
+      if (!button.special) return;
+      button.light();
+      if (button.special.indexOf("left") > -1) game.activeBrick.move(0,-2);
+      if (button.special.indexOf("right") > -1) game.activeBrick.move(0,2);
+      if (button.special.indexOf("up") > -1) game.activeBrick.rotate(1);
+      if (button.special.indexOf("down") > -1) game.activeBrick.rotate(-1);
+    });
+    launchpad.on('release', function(button) {
+      if (!isActive) return;
+      if (!game.running) return;
+      button.dark();
+    });
+  }
+  inited = true;
 
 };
 
