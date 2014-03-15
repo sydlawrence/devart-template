@@ -56,7 +56,7 @@ else{
       return true;
     }
     var command = [file];
-    console.log('playing'.magenta + '=>'.yellow + file.cyan);
+    // console.log('playing'.magenta + '=>'.yellow + file.cyan);
     var child = spawn(play.playerList[0], command);
 
 
@@ -74,7 +74,7 @@ else{
         console.log(file.cyan + '=>'.yellow + 'could not be read by your player.'.red)
       }
       else{
-        console.log( 'completed'.green + '=>'.yellow + file.magenta);
+        // console.log( 'completed'.green + '=>'.yellow + file.magenta);
         if (callback) callback();
       }
     });
