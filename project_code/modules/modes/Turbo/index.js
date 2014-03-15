@@ -21,7 +21,7 @@ var showRandom = function(launchpad) {
 
 var interval;
 
-var initedPreviously = false;
+
 var isActive = false;
 var onInit = function(launchpad) {
   isActive = true;
@@ -33,14 +33,11 @@ var onInit = function(launchpad) {
       showRandom(launchpad);
     }
   },100);
-  if (!initedPreviously) {
-    launchpad.on("press", function(btn){
-      if (!btn.special && isActive) {
-        grid.playAudio(__dirname+"/CAPlogo.mp3");
-      }
-    });
-    initedPreviously = true;
-  }
+  launchpad.on("press", function(btn){
+    if (!btn.special && isActive) {
+      grid.playAudio(__dirname+"/CAPlogo.mp3");
+    }
+  });
 };
 
 var onFinish = function(launchpad) {

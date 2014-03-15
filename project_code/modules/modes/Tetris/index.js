@@ -127,12 +127,10 @@ game.on("gameover", function(){
   game.stop();
 });
 
-var initedPreviously = false;
 var onInit = function(launchpad) {
   isActive = true;
   game.launchpad = launchpad;
   game.start();
-  if (!initedPreviously) {
     launchpad.on('press', function(button) {
       if (!isActive) return;
       if (!game.running) return;
@@ -149,7 +147,6 @@ var onInit = function(launchpad) {
       button.dark();
     });
   }
-  inited = true;
 
 };
 

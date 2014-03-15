@@ -12,7 +12,6 @@ var colors = [
 var grid;
 
 var isActive = false;
-var initedPreviously = false;
 
 var playSample = function(i, cb) {
   grid.playAudio(__dirname+"/audio/sample-"+i+".wav", cb);
@@ -34,13 +33,10 @@ var buttonPress = function(btn) {
 module.exports = new Mode("Sample Pad", function (launchpad){
   grid = launchpad;
   launchpad.light(COLORS.red.low);
-  if (!initedPreviously) {
     launchpad.on("press", function(btn) {
       if (!isActive) return;
       buttonPress(btn);
     });
-  }
-  initedPreviously = true;
   isActive = true;
 }, function(launchpad){
     isActive = false;

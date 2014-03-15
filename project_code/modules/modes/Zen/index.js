@@ -46,16 +46,13 @@ var startWave = function(btn) {
 };
 
 var isActive = false;
-var initedPreviously = false;
+
 var onInit = function(launchpad) {
   isActive = true;
   grid = launchpad;
-  if (!initedPreviously) {
-    launchpad.on("press", function(btn){
-      if (isActive) startWave(btn);
-    });
-    initedPreviously = true;
-  }
+  launchpad.on("press", function(btn){
+    if (isActive) startWave(btn);
+  });
 };
 var onFinish = function() {
   isActive = false;
