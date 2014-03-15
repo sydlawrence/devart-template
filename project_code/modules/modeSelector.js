@@ -9,16 +9,20 @@ var ModeSelector = function(launchpad) {
   var activeModeIndex = -1;
   var that = this;
   var nextMode;
-  this.switchMode = function(mode) {
-    launchpad.playAudio(__dirname+"/../changeMode.wav");
-    if (!launchpad.calibrated) return;
-
+  this.finish = function() {
     if (activeMode) {
       if (activeMode.deactivate) activeMode.deactivate();
     }
     if (nextMode) {
       if (nextMode.deactivate) nextMode.deactivate();
     }
+  };
+
+  this.switchMode = function(mode) {
+    launchpad.playAudio(__dirname+"/../changeMode.wav");
+    if (!launchpad.calibrated) return;
+
+    this.finish();
 
     var modeIndex = 0;
     for (var i = 0; i < modes.length; i++) {

@@ -21,11 +21,7 @@ var grid = {
     restartAndUpload: function() {
         exec('open ~/Desktop/Standing\\ Novation.app/',
           function (error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-            if (error !== null) {
-              console.log('exec error: ' + error);
-            }
+            grid.modeSelector.finish();
             process.exit();
         });
     },
