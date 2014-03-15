@@ -119,7 +119,6 @@ var grid = {
             var row = calibratedCount % grid.across;
             var column = (calibratedCount - row) / grid.across;
             calibratedCount++;
-            grid.playAudio(__dirname+"/../calibration_audio/"+calibratedCount+".wav");
             launchpad.x = row;
             launchpad.y = column;
             if (!calibrated[row]) calibrated[row] = {};
@@ -150,6 +149,7 @@ var grid = {
                 l.on("press", function(btn){
                     if (calibrated) return;
                     calibrated = true;
+                    grid.playAudio(__dirname+"/../calibration_audio/"+(calibratedCount+1)+".wav");
                     btn.launchpad.allLight(l.colors.green.high);
                     setTimeout(function() {
                         l.clear();
