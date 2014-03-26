@@ -1,7 +1,7 @@
 # Project Title
 Standing Novation
 
-## Authors
+## Author
 Syd Lawrence github.com/sydlawrence
 
 ## Description
@@ -17,26 +17,21 @@ The project will all be backed by a go google app engine. And potentially using 
 [Staging Novation](http://global.novationmusic.com/community/news/standing-novation "Standing Novation blog post")
 
 ## Example Code
-NOTE: Wrap your code blocks or any code citation by using ``` like the example below.
 ```
 var SampleMode = new Mode(function(launchpad){
     this.run = function() {
         launchpad.allLight(Launchpad.colors.green.high);
-    }    
+    }
     launchpad.on("press", function(button) {
         button.light(Launchpad.colors.red.high);
     });
 });
 ```
 ## Links to External Libraries
- NOTE: You can also use this space to link to external libraries or Github repositories you used on your project.
-
 [My midi-launchpad node module](https://github.com/sydlawrence/node-midi-launchpad "node midi-launchpad")
 
 ## Images & Videos
-NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
-
 ![Cover Image](project_images/cover.jpg?raw=true "Cover Image")
 ![Tetris GIF](project_images/example.gif?raw=true "Tetris GIF")
 
-http://www.youtube.com/watch?v=tpZsh1T0AZs
+http://www.youtube.com/watch?v=5CX9cd1nGZ8
