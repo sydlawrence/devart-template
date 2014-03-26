@@ -10,10 +10,12 @@
             "instagram"
         ],
         "platforms": [
-            "chrome apps",
-            "app engine"
+            "google chrome apps",
+            "google app engine"
         ],
         "toolkits": [
+            "node.js",
+            "midi"
         ]
     },
     "themes": [
