@@ -28,9 +28,3 @@ After showing Standing Novation to a few people, who know what the launchpads ar
 ## Emulator
 
 I've spent (wasted) a few days trying to build an emulator for Standing Novation, for people to create modes in the browser. I got nowhere. This will have to happen some other time. But I've decided that the installation is NOT complete with out this, and user generated modes.
-
-## A Video
-
-WOOOO! There is now a video of this in action, featuring my glamorous assistance (my girlfriend), Sophie. Let me know what you think!
-
-http://www.youtube.com/watch?v=5CX9cd1nGZ8

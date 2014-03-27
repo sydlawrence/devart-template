@@ -34,4 +34,4 @@ var SampleMode = new Mode(function(launchpad){
 ![Cover Image](project_images/cover.jpg?raw=true "Cover Image")
 ![Tetris GIF](project_images/example.gif?raw=true "Tetris GIF")
 
-http://www.youtube.com/watch?v=5CX9cd1nGZ8
+http://www.youtube.com/watch?v=InBHd49HQ4w
